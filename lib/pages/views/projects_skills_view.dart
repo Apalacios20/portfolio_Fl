@@ -49,7 +49,7 @@ class _ProjectsAndSkillsViewState extends State<ProjectsAndSkillsView> {
       child: Container(
         // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 15),
         padding: EdgeInsets.fromLTRB(
-            0, MediaQuery.of(context).size.height / 15, 0, 25),
+            0, MediaQuery.of(context).size.height / 15, 0, 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -122,6 +122,7 @@ class _ProjectsAndSkillsViewState extends State<ProjectsAndSkillsView> {
             else
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                // AP20 project cards
                 children: [
                   TileCard(
                     imageUrl: "python.png",
@@ -130,8 +131,8 @@ class _ProjectsAndSkillsViewState extends State<ProjectsAndSkillsView> {
                     onTap: () => _selectCard(
                         "assets/python.png",
                         "Crypto Exchange UI",
-                        "Detailed description of Crypto Exchange UI project...",
-                        ["Flutter", "React", "JavaScript"]),
+                        "I have a keen interest in cryptocurrencies, which led me to develop the user interface of a crypto exchange inspired by Uphold. This project involved leveraging the CoinMarketCap API to provide accurate and real-time data feeds. I built the frontend using Flutter to ensure a responsive and seamless user experience. For the backend, I utilized Go to efficiently process the data feeds and manage the exchange operations.",
+                        ["Flutter", "golang", "API Interaction"]),
                   ),
                   TileCard(
                     imageUrl: "flare.svg",
@@ -140,8 +141,13 @@ class _ProjectsAndSkillsViewState extends State<ProjectsAndSkillsView> {
                     onTap: () => _selectCard(
                         "assets/flare.svg",
                         "Flare Network API",
-                        "Detailed description of Flare Network API project...",
-                        ["Flutter", "React", "JavaScript"]),
+                        "The first step of my project is to verify wallet addresses across all chains supported by the Flare Network. This process utilizes the Flare Network API to seamlessly validate and interact with wallet addresses. Following this, the project will incorporate real-time data feeds from all chains on Flare, as well as smart contract integration to enhance functionality and security.",
+                        [
+                          "Flutter",
+                          "NestJs",
+                          "Solidity",
+                          "Flare API Interaction"
+                        ]),
                   ),
                 ],
               ),
@@ -543,45 +549,149 @@ class ProjectDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: onBack,
-          ),
-          Text(
-            title,
-            style: GoogleFonts.titilliumWeb(fontSize: 35, color: Colors.black),
-          ),
-          const SizedBox(height: 16.0),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 18.0, color: Colors.black),
-          ),
-          const SizedBox(height: 16.0),
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 4.0,
-            children: skills.map((skill) => Chip(label: Text(skill))).toList(),
-          ),
-          const SizedBox(height: 16.0),
-          if (imageUrl.toLowerCase().endsWith('.svg'))
-            SvgPicture.asset(
-              imageUrl,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.contain,
-            )
-          else
-            Image.asset(
-              imageUrl,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.contain,
+          Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: onBack,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Web Development',
+                  style: TextStyle(fontSize: 14),
+                ),
+                Text(
+                  title,
+                  style: GoogleFonts.titilliumWeb(
+                      fontSize: 45, color: Colors.black),
+                ),
+                const SizedBox(height: 25.0),
+                Text(
+                  description,
+                  style: const TextStyle(fontSize: 18.0, color: Colors.black),
+                ),
+                const SizedBox(height: 40.0),
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 4.0,
+                  children:
+                      skills.map((skill) => Chip(label: Text(skill))).toList(),
+                ),
+                // const SizedBox(height: 16.0),
+              ],
             ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                HoverableImage(
+                  imageUrl: imageUrl,
+                  offset: Offset(0, 0),
+                ),
+                SizedBox(height: 20),
+                HoverableImage(
+                  imageUrl: imageUrl,
+                  offset: Offset(100, 0),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 20.0),
+                //   child: imageUrl.toLowerCase().endsWith('.svg')
+                //       ? SvgPicture.asset(
+                //           imageUrl,
+                //           height: 200,
+                //           fit: BoxFit.contain,
+                //         )
+                //       : Image.asset(
+                //           imageUrl,
+                //           height: 200,
+                //           fit: BoxFit.contain,
+                //         ),
+                // ),
+                // SizedBox(height: 20),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 40.0),
+                //   child: imageUrl.toLowerCase().endsWith('.svg')
+                //       ? SvgPicture.asset(
+                //           imageUrl,
+                //           height: 200,
+                //           fit: BoxFit.contain,
+                //         )
+                //       : Image.asset(
+                //           imageUrl,
+                //           height: 200,
+                //           fit: BoxFit.contain,
+                //         ),
+                // ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+// TODO: when hovering over show a bigger picture of the picture hovering ovewr
+class HoverableImage extends StatefulWidget {
+  final String imageUrl;
+  final Offset offset;
+
+  const HoverableImage({
+    required this.imageUrl,
+    required this.offset,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _HoverableImageState createState() => _HoverableImageState();
+}
+
+class _HoverableImageState extends State<HoverableImage> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        transform:
+            Matrix4.translationValues(widget.offset.dx, widget.offset.dy, 0),
+        decoration: BoxDecoration(
+          boxShadow: _isHovered
+              ? [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 15,
+                    offset: Offset(0, 10),
+                  ),
+                ]
+              : [],
+        ),
+        child: widget.imageUrl.toLowerCase().endsWith('.svg')
+            ? SvgPicture.asset(
+                widget.imageUrl,
+                height: 200,
+                fit: BoxFit.contain,
+              )
+            : Image.asset(
+                widget.imageUrl,
+                height: 200,
+                fit: BoxFit.contain,
+              ),
       ),
     );
   }
