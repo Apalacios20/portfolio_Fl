@@ -11,8 +11,6 @@ import 'package:myportfolio/pages/views/projects_skills_view.dart';
 import 'package:myportfolio/widgets/contact_form_dialog.dart';
 import 'package:myportfolio/widgets/contact_form_textfield.dart';
 import 'package:myportfolio/widgets/home_icons.dart';
-import 'package:myportfolio/widgets/link_card.dart';
-import 'package:myportfolio/widgets/skill_icon.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

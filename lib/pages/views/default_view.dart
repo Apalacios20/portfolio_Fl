@@ -33,7 +33,7 @@ class DefaultView extends StatelessWidget {
             ),
           ),
           Text(
-            "Flutter Dev // Nest.js Dev // App Dev",
+            "Flutter Dev  //  NestJs Dev  //  App Dev",
             style: GoogleFonts.gruppo(
               textStyle: const TextStyle(
                 fontSize: 35,
